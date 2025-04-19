@@ -1,10 +1,4 @@
 
-
-
-provider "aws" {
-  region = "us-east-1" # Replace with your desired AWS region
-}
-
 resource "aws_ecr_repository" "example" {
   name                 = "my-ecr-repo" # Replace with your desired repository name
   image_scanning_configuration {
