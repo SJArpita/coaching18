@@ -1,0 +1,31 @@
+name: Create SQS Queue
+
+on:
+  workflow_dispatch:
+    inputs:
+      queue_name:
+        description: 'Name of the SQS queue'
+        required: true
+        default: 'my-sqs-queue'
+
+jobs:
+  create-sqs-queue:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Configure AWS Credentials
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 # Replace with your desired AWS region
+
+      # Step 3: Create SQS Queue
+      - name: Create SQS Queue
+        run: |
+          aws sqs create-queue --queue-name ${{ github.event.inputs.queue_name }} --attributes VisibilityTimeout=30

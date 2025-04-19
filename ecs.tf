@@ -1,6 +1,4 @@
-provider "aws" {
-  region = "us-east-1" # Replace with your desired AWS region
-}
+
 
 # Create an ECS Cluster
 resource "aws_ecs_cluster" "example" {
